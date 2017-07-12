@@ -41,6 +41,15 @@ resource "aws_security_group" "nat_inst_sg" {
     }
 }
 
+data "template_file" "userdata" {
+  template = "${file("${path.module}/${var.path_to_file}")}"
+
+  vars {
+    dns_name = "${var.puppetmaster_dns}"
+    env      = "${var.env}"
+  }
+}
+
 resource "aws_instance" "nat_instance" {
     count                       = "${length(var.pub_sn_ids)}"
     ami                         = "${var.nat_instance_ami}"
@@ -52,6 +61,7 @@ resource "aws_instance" "nat_instance" {
     associate_public_ip_address = true
     private_ip                  = "${var.vpc_netprefix}.${var.pub_sn_netnumber}${count.index}.${var.nat_instance_addr}"
     vpc_security_group_ids      = ["${aws_security_group.nat_inst_sg.*.id[count.index]}"]
+    user_data                   = "${data.template_file.userdata.rendered}"
     depends_on                  = ["aws_security_group.nat_inst_sg"]
     tags {
         Name = "${var.res_nameprefix}${var.env}${var.nat_instance_namesuffix}${count.index}"

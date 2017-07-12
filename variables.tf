@@ -51,3 +51,7 @@ variable "priv_sn_netmask" {
 variable "priv_sn_rt_namesuffix" {
     default = "-priv-sn-rt"
 }
+variable "path_to_file" {
+    default = "./puppetagent.sh"
+}
+variable "puppetmaster_dns" {}
