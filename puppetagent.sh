@@ -7,4 +7,7 @@ cat >> /etc/puppetlabs/puppet/puppet.conf << EOF
 server = ${dns_name}
 environment = ${env}
 EOF
+cat >> /etc/hosts << EOF
+${puppet_ip} ${dns_name}
+EOF
 systemctl start puppet
