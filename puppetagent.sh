@@ -9,4 +9,4 @@ EOF
 cat >> /etc/hosts << EOF
 ${puppet_ip} ${dns_name}
 EOF
-systemctl start puppet
+service puppet start
