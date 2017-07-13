@@ -47,6 +47,7 @@ data "template_file" "userdata" {
   vars {
     dns_name = "${var.puppetmaster_dns}"
     env      = "${var.env}"
+    puppet_ip   = "${var.puppet_ip}"
   }
 }
 

@@ -55,3 +55,4 @@ variable "path_to_file" {
     default = "./puppetagent.sh"
 }
 variable "puppetmaster_dns" {}
+variable "puppet_ip" {}
