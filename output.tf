@@ -1,7 +1,6 @@
 output "vpc_id" {
     value = "${var.vpc_id}"
 }
-}
 output "nat_inst_sg_ids" {
     value = ["${aws_security_group.nat_inst_sg.*.id}"]
 }
