@@ -82,20 +82,9 @@ resource "aws_route_table" "priv_sn_rt" {
     }
 }
 
-resource "aws_subnet" "priv_sn" {
-    count             = "${length(var.pub_sn_ids)}"
-    vpc_id            = "${var.vpc_id}"
-    availability_zone = "${element(var.pub_sn_azs, count.index)}"
-    cidr_block        = "${var.vpc_netprefix}.${var.priv_sn_netnumber}${count.index}.0/${var.priv_sn_netmask}"
-    depends_on        = ["aws_instance.nat_instance"]
-    tags {
-        Name = "${var.res_nameprefix}${var.env}${var.priv_sn_namesuffix}${count.index}"
-    }
-}
-
 resource "aws_route_table_association" "rt_priv_sn_assoc" {
     count          = "${length(var.pub_sn_ids)}"
-    subnet_id      = "${aws_subnet.priv_sn.*.id[count.index]}"
+    subnet_id      = "${priv_sn_ids[count.index]}"
     route_table_id = "${aws_route_table.priv_sn_rt.*.id[count.index]}"
     depends_on     = ["aws_subnet.priv_sn","aws_route_table.priv_sn_rt"]
 }
