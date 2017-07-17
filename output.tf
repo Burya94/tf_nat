@@ -1,11 +1,6 @@
 output "vpc_id" {
     value = "${var.vpc_id}"
 }
-output "priv_sn_ids" {
-    value = ["${aws_subnet.priv_sn.*.id}"]
-}
-output "priv_sn_azs" {
-    value = ["${aws_subnet.priv_sn.*.availability_zone}"]
 }
 output "nat_inst_sg_ids" {
     value = ["${aws_security_group.nat_inst_sg.*.id}"]

@@ -86,5 +86,5 @@ resource "aws_route_table_association" "rt_priv_sn_assoc" {
     count          = "${length(var.pub_sn_ids)}"
     subnet_id      = "${priv_sn_ids[count.index]}"
     route_table_id = "${aws_route_table.priv_sn_rt.*.id[count.index]}"
-    depends_on     = ["aws_subnet.priv_sn","aws_route_table.priv_sn_rt"]
+    depends_on     = ["aws_route_table.priv_sn_rt"]
 }
