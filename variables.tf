@@ -56,4 +56,4 @@ variable "path_to_file" {
 }
 variable "puppetmaster_dns" {}
 variable "puppet_ip" {}
-variable "priv_sn_ids" {}
+variable "priv_sn_ids" { type = "list "}
